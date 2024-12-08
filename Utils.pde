@@ -6,10 +6,33 @@ PImage getMirror(PImage img) {
   pg.endDraw();
   return pg.get();
 }
+class ZeroDivisionException extends RuntimeException {ZeroDivisionException(){}}
+class SyntaxError extends RuntimeException
+  {SyntaxError(String msg){super(msg);}}
 boolean mousein(int x,int y,int sizex,int sizey) {
   return mouseX>x&&mouseX<x+sizex&&
          mouseY>y&&mouseY<y+sizey;
 }
+boolean isDigit(String s) {
+  try {
+    new Float(s);
+    return true;
+  } catch (NumberFormatException e) {
+    return false;
+  }
+/*if (s.equals("")||s.charAt(0)!='-'&&!Character.isDigit(s.charAt(0))) return false;
+  for (char c:s.substring(1).toCharArray())
+    if (!Character.isDigit(c)&&c!='.')
+      return false;*/
+  //return true;
+}
+/*boolean isIntegerStr(String s) {
+  if (s.equals("")) return false;
+  for (char c:s.toCharArray())
+    if (!Character.isDigit(c))
+      return false;
+  return true;
+}*/
 
 void setst(Screen st) {screen=new MiddleScreen(st,200);}
 class MiddleScreen extends Screen  {
