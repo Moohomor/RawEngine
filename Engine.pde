@@ -19,7 +19,7 @@ class Engine {
     }
   }
   void step() {
-    println("Step! Pos "+module.name+" at",module.pos);
+    println("Step! Pos "+module.pos+" at",module.name);
     for (;;module.pos++) {
       int pos=module.pos;
       if (module.pos>=module.length) {
@@ -32,19 +32,23 @@ class Engine {
         }
       }
       String line=module.rows[pos].trim();
+      int hashpos=line.indexOf("#");
+      println(line,hashpos);
+      //if (line.endsWith("#")) continue;
+      if (hashpos!=-1)
+        line=line.substring(0,hashpos);
+      if (line.equals("")) continue;
       String[] tokens = line.replace("\\n","\n").split(" ");
       String fn=tokens[0].trim();//.substring(1);
       println(module.name,pos,"_"+fn+"_");
-      if (line.equals("")||fn.contains("#"))
-        continue;
-      else if (fn.contains("-")) {
+      if (fn.contains("-")) {
         module.pos++;
         break;
-      } else if (fn.contains("tx")) {
+      } else if (fn.equals("tx")) {
         text=preprocess(join(tokens," ").substring(3));
-      } else if (fn.contains("append")) {
+      } else if (fn.equals("append")) {
         text+=preprocess(join(tokens," ").substring(7));
-      } else if (fn.contains("bg")) {
+      } else if (fn.equals("bg")) {
         setbg(imdata.get(join(tokens,' ').substring(3)));
       } else if (fn.equals("if")) {
         /*for (int i=pos;i<module.length;i++) {
@@ -65,20 +69,12 @@ class Engine {
         println(blk);
         if (module.exprs.get(pos).eval()==0)
           pos=blk.els!=-1?blk.els:blk.end;
-      } else if (fn.contains("else")) {
+      } else if (fn.equals("else")) {
         pos=ifs.getLast().end;
-      } else if (fn.contains("endif")) {
+      } else if (fn.equals("endif")) {
         ifs.pollLast();
-      } else if (fn.contains("endloop")) {
+      } else if (fn.equals("endloop")) {
         pos=loops.pollLast().start-1;
-      } else if (tokens[1].contains("=\"")||
-                 tokens[1].contains("='")){
-        vars.put(fn,line.substring(line.indexOf("=")+3));
-        //println(vars);
-      } else if (tokens[1].contains("=")){
-        println(module.exprs.get(pos));
-        nvars.put(fn,module.exprs.get(pos).eval());
-        //println(nvars);
       } else if (fn.equals("loop")) {println(nvars);println(vars);
         Block blk=module.blocks.get(pos);
         loops.addLast(blk);
@@ -96,9 +92,9 @@ class Engine {
           chrs.clear();
           continue;
         }
-        if (cm.contains("remove"))
+        if (cm.equals("remove"))
           chrs.remove(chrs.indexOf(tokens[2]));
-        else if (cm.contains("add"))
+        else if (cm.equals("add"))
           chrs.add(tokens[2]);
         int s=0;
         for (String i:chrs) s+=imdata.get(i).width;
@@ -110,6 +106,16 @@ class Engine {
         module.pos=-1;
         /*if (tokens.length>1)
           pos=int(tokens[2]);*/
+      } else if (tokens[1].contains("=")) {
+        println(module.exprs.get(pos));
+        int idx=line.indexOf("=");
+        nvars.put(line.substring(0,idx).trim(),float(line.substring(idx+1).trim()));
+        //println(nvars);
+      } else if (line.contains("=\"")||
+                 line.contains("='")) {
+        int idx=line.indexOf("=");
+        vars.put(line.substring(0,idx).trim(),line.substring(idx+2).trim());
+        //println(vars);
       }
     }
   }

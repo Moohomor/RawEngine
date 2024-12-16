@@ -218,6 +218,8 @@ class MathExpression {
       return s;
     if (nvars.containsKey(s))
       return str(nvars.get(s));
+    if (!vars.containsKey(s))
+      throw new RuntimeException("Variable "+s+" not found");
     return vars.get(s);
   }
   String gettx(String msg) {//println(msg);
