@@ -110,12 +110,12 @@ class Engine {
         println(module.exprs.get(pos));
         int idx=line.indexOf("=");
         nvars.put(line.substring(0,idx).trim(),float(line.substring(idx+1).trim()));
-        //println(nvars);
+        println(nvars);
       } else if (line.contains("=\"")||
                  line.contains("='")) {
         int idx=line.indexOf("=");
         vars.put(line.substring(0,idx).trim(),line.substring(idx+2).trim());
-        //println(vars);
+        println(vars);
       }
     }
   }
