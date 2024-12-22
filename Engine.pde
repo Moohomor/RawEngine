@@ -2,14 +2,14 @@ class Engine {
   String text="";
   //String mod="main";
   Module module;
-  HashMap<String,Module> mods=new HashMap<String,Module>();
   ArrayDeque<IfBlock> ifs=new ArrayDeque<IfBlock>();
   ArrayDeque<Block> loops=new ArrayDeque<Block>();
   Engine() {
-    loadModules();println(mods);
+    dfsMods("main");
+    println(mods);
     module=mods.get("main");
   }
-  private void loadModules() {
+  /*private void loadModules() {
     for (String name:new File(
         sketchPath("")).list())
       if (name.endsWith(".mod")) {
@@ -17,7 +17,7 @@ class Engine {
         mods.put(name_,
                  new Module(name_,loadStrings(name)));
     }
-  }
+  }*/
   void step() {
     println("Step! Pos "+module.pos+" at",module.name);
     for (;;module.pos++) {
@@ -47,7 +47,7 @@ class Engine {
       } else if (fn.equals("tx")) {
         text=preprocess(join(tokens," ").substring(3));
       } else if (fn.equals("append")) {
-        text+=preprocess(join(tokens," ").substring(7));
+        text+=" "+preprocess(join(tokens," ").substring(7));
       } else if (fn.equals("bg")) {
         setbg(imdata.get(join(tokens,' ').substring(3)));
       } else if (fn.equals("if")) {
@@ -148,6 +148,7 @@ class Engine {
   }*/
 String preprocess(String str) {
   int l=-1;
+  str.replace("\\n","\n");
   ArrayList<String> r=new ArrayList<String>();
   for (int i=0;i<str.length();i++) {
     if (str.charAt(i)=='{') {

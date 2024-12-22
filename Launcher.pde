@@ -8,6 +8,7 @@ long prevtap=millis();
 ArrayList<String> chrs=new ArrayList<String>();
 int avchr;
 PImage bg;
+HashMap<String,Module> mods=new HashMap<String,Module>();
 HashMap<String,PImage> imdata=new HashMap<String,PImage>();
 HashMap<String,Float> nvars=new HashMap<String,Float>();
 HashMap<String,String> vars=new HashMap<String,String>();
