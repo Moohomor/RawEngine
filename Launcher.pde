@@ -28,7 +28,7 @@ void setup() {
   opPriority.put("/",5);
   opPriority.put("%",5);
   nvars.put("PI",PI);
-  loadData();
+  //loadData();
   screen=new Menu();
   prev=createImage(width,height,RGB);
 }
@@ -61,7 +61,7 @@ void setbg(PImage im) {
   bg=im;
   bg.resize(width,height);
 }
-void loadData() {
+/*void loadData() {
   for (String name:new File(
     sketchPath("")).list()) {
     String naml=name.toLowerCase();
@@ -70,4 +70,4 @@ void loadData() {
       imdata.put(name,loadImage(name));
     }
   }
-}
+}*/

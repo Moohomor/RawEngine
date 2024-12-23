@@ -21,8 +21,14 @@ class Module {
             trimmed.startsWith("else")||
             trimmed.contains("=")||
             trimmed.startsWith("loop")||
-            trimmed.startsWith("endloop"))) continue;
+            trimmed.startsWith("endloop")||
+            trimmed.startsWith("bg"))) continue;
       String[] tokens=trimmed.split(" ");
+      if (tokens[0].trim().equals("bg")) {
+        String name=join(tokens,' ').substring(3);
+        imdata.put(name,loadImage(name));
+        continue;
+      }
       if (tokens[0].contains("endif")) {
         ifcnt--;
         if (ifcnt<0) throw new SyntaxError("Too many 'endif' tokens");
