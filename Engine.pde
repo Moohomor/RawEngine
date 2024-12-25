@@ -23,11 +23,14 @@ class Engine {
     for (;;module.pos++) {
       int pos=module.pos;
       if (module.pos>=module.length) {
-        if (module.previous==null) {
+        //if (module.previous==null) {
+        if (modstack.isEmpty()||
+            modstack.getLast()==null) {
           screen=new Menu();
           return;
         } else {
-          module=module.previous;
+          //module=module.previous;
+          module=modstack.pollLast();
           continue;
         }
       }
@@ -99,10 +102,15 @@ class Engine {
         int s=0;
         for (String i:chrs) s+=imdata.get(i).width;
         avchr=s/chrs.size();
+      } else if (fn.equals("save")) {
+        saveData(tokens[1].trim());
+      } else if (fn.equals("load")) {
+        loadData(tokens[1].trim());
       } else if (fn.equals("goto")) {
-        Module prev=module;
+        //Module prev=module;
+        modstack.add(module);
         module=mods.get(tokens[1].trim());
-        module.previous=prev;
+        //module.previous=prev;
         module.pos=-1;
         /*if (tokens.length>1)
           pos=int(tokens[2]);*/

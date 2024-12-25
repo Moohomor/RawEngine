@@ -5,15 +5,14 @@ class Module {
   int length;
   int pos=0;
   String name;
-  Module previous=null;
   Module(String name_,String[] lines) {
     name=name_;
     rows=lines;
     int ifcnt=0,loopcnt=0;
     ArrayDeque<Integer>
-    ifs=new ArrayDeque<Integer>(),
-    elses=new ArrayDeque<Integer>(),
-    loops=new ArrayDeque<Integer>();
+      ifs=new ArrayDeque<Integer>(),
+      elses=new ArrayDeque<Integer>(),
+      loops=new ArrayDeque<Integer>();
     for (int i=0;i<rows.length;i++) {
       String trimmed=rows[i].trim();
       if (!(trimmed.startsWith("if")||
@@ -60,6 +59,7 @@ class Module {
     }
     if (ifcnt>0) throw new SyntaxError("Not enough 'endif' tokens");
     if (loopcnt>0) throw new SyntaxError("Not enough 'endloop' tokens");
+    println("Expressions&Blocks");
     println(exprs);
     println(blocks);
     length=rows.length;

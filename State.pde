@@ -81,7 +81,9 @@ class Choice extends State {
         state=new Main();
       }
     }
-    if (nvars.containsKey("choice"))
+    if (nvars.containsKey("choice")) {
       engine.step();
+      println("Choosed",nvars.get("choice"));
+    }
   }
 }
