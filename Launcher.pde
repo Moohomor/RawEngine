@@ -1,3 +1,5 @@
+import android.media.MediaPlayer;
+import android.content.res.AssetFileDescriptor;
 import java.util.ArrayDeque;
 import java.util.Map;
 Engine engine;
@@ -13,6 +15,7 @@ HashMap<String,Module> mods=new HashMap<String,Module>();
 HashMap<String,PImage> imdata=new HashMap<String,PImage>();
 HashMap<String,Float> nvars=new HashMap<String,Float>();
 HashMap<String,String> vars=new HashMap<String,String>();
+HashMap<String,PAudio> audio=new HashMap<String,PAudio>();
 color cbg=0;
 void setup() {
   opPriority.put("=",0);
