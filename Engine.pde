@@ -53,14 +53,6 @@ class Engine {
         text+=" "+preprocess(join(tokens," ").substring(7));
       } else if (fn.equals("bg")) {
         setbg(imdata.get(join(tokens,' ').substring(3)));
-      } else if (fn.equals("audio")) {
-        audio.put(tokens[1],new PAudio(tokens[1]));
-        if (tokens.length>2) {
-          if (tokens[1]=="end") {
-            audio.get(tokens[1]).stop();
-            audio.remove(tokens[1]);
-          }
-        }
       } else if (fn.equals("if")) {
         /*for (int i=pos;i<module.length;i++) {
           String line1=module.rows[i];
