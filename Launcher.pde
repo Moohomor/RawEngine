@@ -28,7 +28,8 @@ void setup() {
   opPriority.put("*",5);
   opPriority.put("/",5);
   opPriority.put("%",5);
-  nvars.put("PI",PI);
+  nvars.put("Math.pi",PI);
+  nvars.put("Math.e",exp(1));
   //loadData();
   screen=new Menu();
   prev=createImage(width,height,RGB);
