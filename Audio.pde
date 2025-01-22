@@ -9,11 +9,14 @@ class PAudio {
       player.setDataSource(desc.getFileDescriptor(),desc.getStartOffset(),desc.getLength());
       player.prepare();
     } catch (IOException ex) {
+      String err_msg="Audio file "+path+" not found";
       if (STRICT_AUDIO)
-        throw new RuntimeException("File "+path+" not found");
+        throw new RuntimeException(err_msg);
+      else println(err_msg);
     }
   }
   void start() {
+    println("Start playing. Player exists:",player!=null);
     if (player!=null)
       player.start();
   }

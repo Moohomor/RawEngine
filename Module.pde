@@ -59,7 +59,7 @@ class Module {
     }
     if (ifcnt>0) throw new SyntaxError("Not enough 'endif' tokens");
     if (loopcnt>0) throw new SyntaxError("Not enough 'endloop' tokens");
-    println("Expressions&Blocks");
+    println(name+":Expressions&Blocks");
     println(exprs);
     println(blocks);
     length=rows.length;
