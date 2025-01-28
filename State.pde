@@ -18,7 +18,7 @@ class Main extends State {
     fill(255);
     textSize(40);
     textAlign(LEFT,TOP);
-    text(engine.text,50,height*0.6+10,width-70,height*.3-20);
+    text(vars.get("Engine.text"),50,height*0.6+10,width-70,height*.3-20);
   }
   void mPressed() {
     engine.step();

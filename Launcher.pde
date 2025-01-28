@@ -29,6 +29,7 @@ void setup() {
   opPriority.put("*",5);
   opPriority.put("/",5);
   opPriority.put("%",5);
+  vars.put("Engine.bg_name","");
   nvars.put("Math.pi",PI);
   nvars.put("Math.e",exp(1));
   //loadData();
@@ -60,7 +61,13 @@ void mousePressed() {
 public void onBackPressed() {
   screen.bPressed();
 }
-void setbg(PImage im) {
+void setbg(String name) {
+  vars.put("Engine.bg_name",name);
+  if (imdata.containsKey(name))
+    setbg_(imdata.get(name));
+  else bg=null;
+}
+void setbg_(PImage im) {
   bg=im;
   bg.resize(width,height);
 }

@@ -1,6 +1,4 @@
 class Engine {
-  String text="";
-  //String mod="main";
   Module module;
   ArrayDeque<IfBlock> ifs=new ArrayDeque<IfBlock>();
   ArrayDeque<Block> loops=new ArrayDeque<Block>();
@@ -48,16 +46,18 @@ class Engine {
         module.pos++;
         break;
       } else if (fn.equals("tx")) {
-        text=preprocess(join(tokens," ").substring(3));
+        vars.put("Engine.text",preprocess(join(tokens," ").substring(3)));
       } else if (fn.equals("append")) {
-        text+=" "+preprocess(join(tokens," ").substring(7));
-      } else if (fn.equals("bg")) {
-        setbg(imdata.get(join(tokens,' ').substring(3)));
+        vars.put("Engine.text"," "+preprocess(join(tokens," ").substring(7)));
+      } else if (fn.equals("log"))
+        println("[Log]",preprocess(line.substring(4)));
+      else if (fn.equals("bg")) {
+        String name=join(tokens,' ').substring(3);
+        setbg(name);
       } else if (fn.equals("audio")) {
-        println(tokens[1]);
         if (tokens[1].equals("play")) {
-          if (audio.containsKey(tokens[2]))
-          audio.put(tokens[2],new PAudio(tokens[2]));
+          if (!audio.containsKey(tokens[2]))
+            audio.put(tokens[2],new PAudio(tokens[2]));
           audio.get(tokens[2]).start();
         } else if (tokens[1]=="stop") {
           audio.remove(tokens[2]);
@@ -177,6 +177,7 @@ String preprocess(String str) {
   }
   for (String i:r) {
     String s=i.substring(1,i.length()-1);
+    println(s);
     if (nvars.containsKey(s))
       str = str.replace(i,str(nvars.get(s)));
     else if (vars.containsKey(s))
