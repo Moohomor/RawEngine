@@ -6,7 +6,8 @@ PImage getMirror(PImage img) {
   pg.endDraw();
   return pg.get();
 }
-class ZeroDivisionException extends RuntimeException {ZeroDivisionException(){}}
+class ZeroDivisionException extends RuntimeException
+  {ZeroDivisionException(){}}
 class SyntaxError extends RuntimeException
   {SyntaxError(String msg){super(msg);}}
 boolean mousein(int x,int y,int sizex,int sizey) {

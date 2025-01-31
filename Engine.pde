@@ -92,6 +92,8 @@ class Engine {
         loops.addLast(blk);
         if (module.exprs.get(pos).eval()==0)
           pos=blk.end;
+      } else if (fn.equals("game")) {
+        choose_minigame(tokens);
       } else if (fn.equals("choice")) {
         line=join(tokens," ").substring(7);
         String[] ch=preprocess(line).split(";");
