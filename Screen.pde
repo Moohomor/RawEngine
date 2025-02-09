@@ -1,6 +1,11 @@
 class Screen {
-  Screen() {}
-  void upd() {}
+  Pane pane;
+  Screen() {
+    pane=new Pane(0,0,width,height);
+  }
+  void upd() {
+    pane.upd();
+  }
   void mPressed() {}
   void bPressed() {
     System.exit(0);
