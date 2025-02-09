@@ -1,5 +1,11 @@
 class State {
-  void upd() {}
+  Pane pane;
+  State() {
+    pane=new Pane(0,0,width,height);
+  }
+  void upd() {
+    pane.upd();
+  }
   void mPressed() {}
   void bPressed() {}
 }

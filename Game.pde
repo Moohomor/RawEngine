@@ -10,6 +10,7 @@ class Game extends Screen {
     else
       background(255);
     state.upd();
+    super.upd();
   }
   void mPressed() {
     state.mPressed();

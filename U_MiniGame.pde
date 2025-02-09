@@ -24,7 +24,7 @@ class InternalMG extends Minigame {
         fill(255);
         textSize(60);
         textAlign(CENTER);
-        text("When screen will become green, tap as quick as it possible",0,height-200,width,height);
+        text("When the screen will become green, tap as quick as it possible",0,height-400,width,height);
       } else {
         background(10,230,10);
         stroke(255);

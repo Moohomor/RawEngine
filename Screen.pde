@@ -15,6 +15,7 @@ class Menu extends Screen {
     textAlign(LEFT,TOP);
     text("Play",20,height/2-50);
     text("Reset",20,height/2+50);
+    super.upd();
   }
   void mPressed() {
     if (mousein(20,height/2-50,width,60))
