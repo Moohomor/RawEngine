@@ -4,7 +4,7 @@ class Screen {
     pane=new Pane(0,0,width,height);
   }
   void upd() {
-    pane.upd();
+    pane.upd(0,0);
   }
   void mPressed() {
     pane.mPressed();
@@ -16,7 +16,7 @@ class Screen {
 class Menu extends Screen {
   Menu() {
     Button b1=new Button(20,height/2-50,"Play") {
-      void draw_bg() {
+      void draw_bg(int x,int y) {
         fill(bgcol);noStroke();
         rect(x,y,sx,sy,10,10,0,0);
       }
@@ -25,7 +25,7 @@ class Menu extends Screen {
       }
     },
            b2=new Button(20,height/2+50,"Reset") {
-      void draw_bg() {
+      void draw_bg(int x,int y) {
         fill(bgcol);noStroke();
         rect(x,y,sx,sy,0,10,10,10);
       }
@@ -35,6 +35,9 @@ class Menu extends Screen {
     };
     pane.ui.add(b1);
     pane.ui.add(b2);
+    /*Pane pan=new Pane(300,300,300,300);
+    pan.ui.add(new Button(0,0,"penis"));
+    pane.ui.add(pan);*/
   }
   void upd() {
     background(255);

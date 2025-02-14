@@ -6,7 +6,7 @@ class Ui {
     x=xx;y=yy;
     sx=sxx;sy=syy;
   }
-  void upd() {}
+  void upd(int shx,int shy) {}
   void mPressed() {
     if (mPressed!=null)
       mPressed.run();
@@ -19,8 +19,8 @@ class Pane extends Ui {
   ArrayList<Ui> ui=new ArrayList<Ui>();
   Pane(int x,int y) {super(x,y);}
   Pane(int x,int y,int sx,int sy) {super(x,y,sx,sy);}
-  void upd() {
-    for (Ui i:ui) i.upd();
+  void upd(int shx,int shy) {
+    for (Ui i:ui) i.upd(x+shx,y+shy);
   }
   void mPressed() {
     for (Ui i:ui)
@@ -41,18 +41,18 @@ class Button extends Ui {
     textSize(textsize);
     sx=int(textWidth(t))+20;sy=int(textAscent()*1.9);
   }
-  void upd() {
+  void upd(int shx,int shy) {
     if (text==null)
-      image(img,x,y,sx,sy);
+      image(img,shx+x,shy+y,sx,sy);
     else {
       textSize(textsize);
-      draw_bg();
+      draw_bg(x+shx,y+shy);
       textAlign(CENTER,CENTER);
       fill(txcol);
-      text(text,x+sx/2,y+sy/2);
+      text(text,x+shx+sx/2,y+shy+sy/2);
     }
   }
-  void draw_bg() {
+  void draw_bg(int x,int y) {
     fill(bgcol);noStroke();
     rect(x,y,sx,sy,10);
   }
