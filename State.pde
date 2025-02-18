@@ -14,7 +14,7 @@ class Main extends State {
     }
     fill(0,170);
     noStroke();
-    rect(20,height*0.6,width-40,height*0.3,10);
+    rect(20,height*0.6,width-40,height*0.3,15);
     fill(255);
     textSize(40);
     textAlign(LEFT,TOP);

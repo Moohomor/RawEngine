@@ -8,6 +8,7 @@ long prevtap=millis();
 ArrayList<String> chrs=new ArrayList<String>();
 int avchr;
 PImage bg;
+ArrayList<Toast> toasts=new ArrayList<Toast>();
 ArrayDeque<Module> modstack=new ArrayDeque<Module>();
 HashMap<String,Module> mods=new HashMap<String,Module>();
 HashMap<String,PImage> imdata=new HashMap<String,PImage>();
@@ -32,6 +33,8 @@ void setup() {
   vars.put("Engine.bg_name","");
   nvars.put("Math.pi",PI);
   nvars.put("Math.e",exp(1));
+  for (String i: NECESSARY_IMAGES)
+    imdata.put(i,loadImage(i));
   //loadData();
   screen=new Menu();
   prev=createImage(width,height,RGB);
@@ -39,18 +42,22 @@ void setup() {
 
 void draw() {
   screen.upd();
+  for (Toast i:toasts)
+    i.upd(width/2,40);
   if (millis()-prevtap<200) {
     tint(255,255*50/(millis()-prevtap));
     image(prev,0,0);
   }
-  tint(255,255);
-  textAlign(CENTER,CENTER);
-  fill(0,120);
-  noStroke();
-  rect(20,20,200,80,20);
-  fill(255,210);
-  textSize(40);
-  text("FPS: "+int(frameRate),20,20,200,80);
+  if (SHOW_FPS) {
+    tint(255,255);
+    textAlign(CENTER,CENTER);
+    fill(0,120);
+    noStroke();
+    rect(20,20,200,80,20);
+    fill(255,210);
+    textSize(40);
+    text("FPS: "+int(frameRate),20,20,200,80);
+  }
 }
 void mousePressed() {
   prev=get();

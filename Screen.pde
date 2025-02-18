@@ -21,6 +21,7 @@ class Menu extends Screen {
         rect(x,y,sx,sy,10,10,0,0);
       }
       void mPressed() {
+        toasts.add(new Toast("Title","Veeeeeeeeeryyhyyyyyyy bbbbbbbiiiiiiiiiiiiiiiiiiiiiig boooooooooooo oooooooooooooody","yes.png"));
         screen=new MiddleScreen(new ColorTrans(new Game(),0,100),500);
       }
     },
