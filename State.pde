@@ -51,7 +51,7 @@ class Choice extends State {
       image(imdata.get("choicebg.png"),0,bpos-50,width,300);
       tint(255,180);
       image(imdata.get("yes.png"),60,bpos,200,200);
-      image(imdata.get("no.png"),width-300,bpos,200,200);
+      image(imdata.get("no.png"),width-260,bpos,200,200);
       tint(255,255);
     } else {
       for (int i=0;i<chooses.length;i++) {

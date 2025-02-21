@@ -47,6 +47,7 @@ void draw() {
   if (millis()-prevtap<200) {
     tint(255,255*50/(millis()-prevtap));
     image(prev,0,0);
+    tint(255,255);
   }
   if (SHOW_FPS) {
     tint(255,255);
