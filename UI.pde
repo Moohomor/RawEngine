@@ -57,7 +57,7 @@ class Toast {
   int sx=width-40,sy=200;
   byte statee=0;
   String title,text,intro;PImage img;
-  long born,introt,lifetime=10000;
+  long born,introt,lifetime=8000;
   Toast(String titl,String body,String image) {
     init(titl,body,image,null);
     statee=2;
@@ -79,10 +79,10 @@ class Toast {
     born=millis();
   }
   void upd(int x,int y) {//10+40*sin(x*PI/120)
-    int t=(int)min(millis()-born,700)/7;
+    int t=(int)min(millis()-born-(millis()>born+lifetime?lifetime:0),700)/7;
     t=int(10+165*sin(t*PI/108.5));
     x-=sx/2;
-    y=y*t/100;
+    y+=40*t/100;
     fill(bgcol);noStroke();
     /*rect(x,y,textWidth(title)+30,titleh-10,15,15,0,0);
     rect(x,y+titleh-10,sx,sy-titleh+5,0,15,15,15);*/
@@ -95,7 +95,13 @@ class Toast {
       drawTrans(x,y);break;
       case 2:
       drawToast(x,y,100);
+      if (millis()>born+lifetime+700)
+        close();
     }
+  }
+  void close() {
+    toasts.set(toasts.indexOf(this),null);
+    trans();
   }
   private void drawIntro(int x,int y,int lit) {
     textSize(60);
@@ -128,6 +134,6 @@ class Toast {
       statee=2;
   }
   void mPressed() {
-    
+    close();
   }
 }

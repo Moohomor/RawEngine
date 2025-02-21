@@ -42,8 +42,14 @@ void setup() {
 
 void draw() {
   screen.upd();
-  for (Toast i:toasts)
-    i.upd(width/2,40);
+  int ty=40;
+  for (int i=0;i<toasts.size();i++) {
+    Toast t=toasts.get(i);
+    t.upd(width/2,ty);
+    ty+=t.sy+20;
+  }
+  while (toasts.contains(null))
+    toasts.remove(null);
   if (millis()-prevtap<200) {
     tint(255,255*50/(millis()-prevtap));
     image(prev,0,0);
@@ -61,9 +67,12 @@ void draw() {
   }
 }
 void mousePressed() {
-  prev=get();
-  prevtap=millis();
+  trans();
   screen.mPressed();
+}
+void trans() {
+  prev=get();
+  prevtap=millis()-1;
 }
 @Override
 public void onBackPressed() {

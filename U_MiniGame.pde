@@ -10,6 +10,7 @@ class InternalMG extends Minigame {
   long end,born,tap;int ww,hh,score=0;
   byte state_=0;
   InternalMG() {
+    toasts.add(new Toast("Test","It's second toast","no.png"));
     born=millis();
     end=millis()+int(random(500,4400));
     ww=width/2;
