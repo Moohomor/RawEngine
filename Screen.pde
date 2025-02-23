@@ -21,7 +21,6 @@ class Menu extends Screen {
         rect(x,y,sx,sy,10,10,0,0);
       }
       void mPressed() {
-        toasts.add(new Toast("Title","Veeeeeeeeeryyhyyyyyyy bbbbbbbiiiiiiiiiiiiiiiiiiiiiig boooooooooooo oooooooooooooody","yes.png","ГОЙДА!"));
         screen=new MiddleScreen(new ColorTrans(new Game(),0,100),500);
       }
     },
@@ -36,17 +35,9 @@ class Menu extends Screen {
     };
     pane.ui.add(b1);
     pane.ui.add(b2);
-    /*Pane pan=new Pane(300,300,300,300);
-    pan.ui.add(new Button(0,0,"penis"));
-    pane.ui.add(pan);*/
   }
   void upd() {
     background(255);
-    /*fill(0);
-    textSize(70);
-    textAlign(LEFT,TOP);
-    text("Play",20,height/2-50);
-    text("Reset",20,height/2+50);*/
     super.upd();
   }
 }

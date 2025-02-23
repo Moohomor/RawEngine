@@ -17,7 +17,7 @@ class Engine {
     }
   }*/
   void step() {
-    println("Step! Pos "+module.pos+" at",module.name);
+    println("Step! Pos "+module.pos+1+" at",module.name);
     for (;;module.pos++) {
       int pos=module.pos;
       if (module.pos>=module.length) {
@@ -49,8 +49,8 @@ class Engine {
         vars.put("Engine.text",preprocess(join(tokens," ").substring(3)));
       } else if (fn.equals("append")) {
         vars.put("Engine.text"," "+preprocess(join(tokens," ").substring(7)));
-      } else if (fn.equals("log"))
-        println("[Log]",preprocess(line.substring(4)));
+      } else if (fn.equals("print"))
+        println("["+module.name+":"+str(module.pos+1)+"] "+preprocess(line.substring(5).trim()));
       else if (fn.equals("bg")) {
         String name=join(tokens,' ').substring(3);
         setbg(name);
@@ -114,6 +114,16 @@ class Engine {
         int s=0;
         for (String i:chrs) s+=imdata.get(i).width;
         avchr=s/chrs.size();
+      } else if (fn.equals("toast")) {
+        String[] args=line.substring(5).split(";");
+        for (int i=0;i<args.length;i++)
+          args[i]=preprocess(args[i].trim());
+        if (args.length==2)
+          toasts.add(new Toast(args[0],args[1],null));
+        else if (args.length==3)
+          toasts.add(new Toast(args[0],args[1],args[2]));
+        else if (args.length==4)
+          toasts.add(new Toast(args[0],args[1],args[2],args[3]));
       } else if (fn.equals("save")) {
         saveData(tokens[1].trim());
       } else if (fn.equals("load")) {
