@@ -25,6 +25,7 @@ class PAudio {
       player.pause();
   }
   void stop() {
+    println("Stop playing");
     if (player!=null)
       player.stop();
   }

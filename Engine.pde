@@ -59,7 +59,8 @@ class Engine {
           if (!audio.containsKey(tokens[2]))
             audio.put(tokens[2],new PAudio(tokens[2]));
           audio.get(tokens[2]).start();
-        } else if (tokens[1]=="stop") {
+        } else if (tokens[1].equals("stop")) {
+          audio.get(tokens[2]).stop();
           audio.remove(tokens[2]);
         }
       } else if (fn.equals("if")) {
