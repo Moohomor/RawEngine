@@ -22,6 +22,8 @@ class Menu extends Screen {
       }
       void mPressed() {
         screen=new MiddleScreen(new ColorTrans(new Game(),0,100),500);
+        if (new File(dataPath("GAME.JSON")).exists())
+          loadData("GAME.JSON");
       }
     },
            b2=new Button(20,height/2+50,"Reset") {

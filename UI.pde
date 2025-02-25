@@ -69,7 +69,7 @@ class Toast {
     title=titl;
     text=body;
     intro=intr;
-    introt=born+lifetime/3;
+    introt=born+int(lifetime*.4);
     img=imdata.get(image);
     textSize(textsize);
     titleh=int(textAscent()*1.9);
