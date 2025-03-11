@@ -20,6 +20,9 @@ class Pane extends Ui {
       if (mousein(i.x,i.y,i.sx,i.sy))
         i.mPressed();
   }
+  String toString() {
+    return ui.toString();
+  }
 }
 class Button extends Ui {
   color txcol=color(240,240,240),
@@ -69,14 +72,14 @@ class Toast {
     title=titl;
     text=body;
     intro=intr;
-    introt=born+int(lifetime*.4);
+    born=millis();
+    introt=born+int(lifetime*.2);
     img=imdata.get(image);
     textSize(textsize);
     titleh=int(textAscent()*1.9);
     if (img!=null)
       img.resize(sy-10-titleh,sy-10-titleh);
     //sx=int(textWidth(title+text))+20;sy=int(textAscent()*1.9);
-    born=millis();
   }
   void upd(int x,int y) {//10+40*sin(x*PI/120)
     int t=(int)min(millis()-born-(millis()>born+lifetime?lifetime:0),700)/7;
@@ -115,7 +118,7 @@ class Toast {
     textAlign(LEFT,TOP);
     textSize(textsize);
     fill(txcol,255*lit/100);
-    text(title,x+15,y+20);
+    text(title,x+15,y+10,sx-20,titleh*2);
     textSize(textsize-15);
     textAlign(LEFT,CENTER);
     text(text,x+15,y+titleh,sx-30-(img==null?0:sy-titleh+20),sy-titleh-15);

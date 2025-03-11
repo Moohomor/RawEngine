@@ -101,6 +101,8 @@ class Engine {
         state=new Choice(ch);
         module.pos++;
         break;
+      } else if (fn.equals("splash")) {
+        state=new Splash(tokens.length>1?line.substring(6):"");
       } else if (fn.equals("char")) {
         String cm=tokens[1].trim();
         if (cm.contains("clear")) {
@@ -124,6 +126,12 @@ class Engine {
           toasts.add(new Toast(args[0],args[1],args[2]));
         else if (args.length==4)
           toasts.add(new Toast(args[0],args[1],args[2],args[3]));
+      } else if (fn.equals("achievement")) {
+        Achievement ach=achs.get(tokens[1]);
+        if (!ach.done)
+          toasts.add(new Toast(ach.title,ach.body,ach.imgn,ach.intro));
+        ach.done=true;
+        saveAchievements();
       } else if (fn.equals("save")) {
         saveData(tokens[1].trim());
       } else if (fn.equals("load")) {

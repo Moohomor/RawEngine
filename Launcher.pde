@@ -1,5 +1,7 @@
 import java.util.ArrayDeque;
 import java.util.Map;
+import java.util.HashSet;
+import java.util.Arrays;
 Engine engine;
 Screen screen;
 State state;
@@ -31,11 +33,17 @@ void setup() {
   opPriority.put("/",5);
   opPriority.put("%",5);
   vars.put("Engine.bg_name","");
+  vars.put("Engine.text","");
   nvars.put("Math.pi",PI);
   nvars.put("Math.e",exp(1));
   for (String i: NECESSARY_IMAGES)
     imdata.put(i,loadImage(i));
-  //loadData();
+  println(imdata);
+  loadAchievements();
+  for (String i:loadStrings("achievements.csv")) {
+    String name=i.split(";")[3].trim();
+    imdata.put(name,loadImage(name));
+  }
   screen=new Menu();
   prev=createImage(width,height,RGB);
 }
@@ -50,7 +58,7 @@ void draw() {
   }
   while (toasts.contains(null))
     toasts.remove(null);
-  if (millis()-prevtap<200) {
+  if (millis()-prevtap<TRANSITION_DURATION) {
     tint(255,255*50/(millis()-prevtap));
     image(prev,0,0);
     tint(255,255);

@@ -66,6 +66,7 @@ class Choice extends State {
     }
   }
   void mPressed() {
+    nvars.remove("choice");
     if (chooses.length==0) {
       if (mousein(60,bpos,200,200)) {
         nvars.put("choice",1.);
@@ -85,5 +86,29 @@ class Choice extends State {
       engine.step();
       println("Choosed",nvars.get("choice"));
     }
+  }
+}
+class Splash extends State {
+  String text;
+  long born;
+  Splash(String t) {
+    text=t;
+    born=millis();
+    trans();
+  }
+  void upd() {
+    if (bg!=null)
+      image(bg,0,0,width,height);
+    else
+      background(DEFAULT_COLOR);
+    textSize(70);
+    textAlign(CENTER,CENTER);
+    text(text.substring(int(text.length()*max(0,1100-millis()+born)/1100)),0,0,width,height);
+    if (millis()-born>3500)
+      mPressed();
+  }
+  void mPressed() {
+    state=new Main();
+    trans();
   }
 }

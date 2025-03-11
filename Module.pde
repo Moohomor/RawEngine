@@ -21,11 +21,19 @@ class Module {
             trimmed.contains("=")||
             trimmed.startsWith("loop")||
             trimmed.startsWith("endloop")||
-            trimmed.startsWith("bg"))) continue;
+            trimmed.startsWith("bg")||
+            trimmed.startsWith("toast"))) continue;
       String[] tokens=trimmed.split(" ");
       if (tokens[0].trim().equals("bg")) {
         String name=join(tokens,' ').substring(3);
         imdata.put(name,loadImage(name));
+        continue;
+      } else if (tokens[0].trim().equals("toast")) {
+        String[] args=trimmed.substring(6).split(";");
+        if (args.length>2) {
+          String name=args[2].trim();
+          imdata.put(name,loadImage(name));
+        }
         continue;
       }
       if (tokens[0].contains("endif")) {
