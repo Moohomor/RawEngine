@@ -12,13 +12,16 @@ class Main extends State {
           h=int(map(img.height,0,img.height,0,height*0.3));
       image(img,30+i*avchr/chrs.size(),height*.6+20-h,w,height*.3);
     }
-    fill(0,170);
-    noStroke();
-    rect(20,height*0.6,width-40,height*0.3,15);
-    fill(255);
-    textSize(40);
-    textAlign(LEFT,TOP);
-    text(vars.get("Engine.text"),50,height*0.6+10,width-70,height*.3-20);
+    String text=vars.get("Engine.text");
+    if (!text.equals("")&&!text.equals(".")) {
+      fill(0,170);
+      noStroke();
+      rect(20,height*0.6,width-40,height*0.3,15);
+      fill(255);
+      textSize(40);
+      textAlign(LEFT,TOP);
+      text(text,50,height*0.6+10,width-70,height*.3-20);
+    }
   }
   void mPressed() {
     engine.step();
@@ -27,11 +30,12 @@ class Main extends State {
 class Choice extends State {
   String q;
   String[] chooses;
-  int vpos=int(height*.7)-90;
-  final int qpos=height/2-100,
-            bpos=int(height*0.85)-100;
+  int vpos;//=int(height*.7)-90;
+  final int qpos=100,
+            bpos=int(height*0.65)-100;
   Choice(String[] c) {
     q = c[0];
+    vpos=int(qpos+height*.2+20);
     chooses=new String[c.length-1];
     for (int i=1;i<c.length;i++)
       chooses[i-1]=c[i];
@@ -100,7 +104,7 @@ class Splash extends State {
     if (bg!=null)
       image(bg,0,0,width,height);
     else
-      background(DEFAULT_COLOR);
+      background(bgc);
     textSize(70);
     textAlign(CENTER,CENTER);
     text(text.substring(int(text.length()*max(0,1100-millis()+born)/1100)),0,0,width,height);

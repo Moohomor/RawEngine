@@ -48,12 +48,23 @@ class Engine {
       } else if (fn.equals("tx")) {
         vars.put("Engine.text",preprocess(join(tokens," ").substring(3)));
       } else if (fn.equals("append")) {
-        vars.put("Engine.text"," "+preprocess(join(tokens," ").substring(7)));
+        vars.put("Engine.text",vars.get("Engine.text")+" "+preprocess(join(tokens," ").substring(7)));
       } else if (fn.equals("print"))
         println("["+module.name+":"+str(module.pos+1)+"] "+preprocess(line.substring(5).trim()));
       else if (fn.equals("bg")) {
-        String name=join(tokens,' ').substring(3);
-        setbg(name);
+        bg=null;
+        /*if (tokens[1].startsWith("#")) {
+          
+          bgc=color(red,blue,green);
+        } else */if (tokens.length==2&&isDigit(tokens[1])) {
+          bgc=color(int(tokens[1]));
+        } else if (tokens.length==2&&tokens[1].split(".").length==3) {
+          String[] cl=tokens[1].split(".");
+          bgc=color(int(cl[0]),int(cl[1]),int(cl[2]));
+        } else {
+          String name=join(tokens,' ').substring(3);
+          setbg(name);
+        }
       } else if (fn.equals("audio")) {
         if (tokens[1].equals("play")) {
           if (!audio.containsKey(tokens[2]))
@@ -81,21 +92,21 @@ class Engine {
         ifs.addLast(blk);
         println(blk);
         if (module.exprs.get(pos).eval()==0)
-          pos=blk.els!=-1?blk.els:blk.end;
+          module.pos=blk.els!=-1?blk.els:blk.end;
       } else if (fn.equals("else")) {
-        pos=ifs.getLast().end;
+        module.pos=ifs.getLast().end;
       } else if (fn.equals("endif")) {
         ifs.pollLast();
       } else if (fn.equals("endloop")) {
-        pos=loops.pollLast().start-1;
-      } else if (fn.equals("loop")) {println(nvars);println(vars);
-        Block blk=module.blocks.get(pos);
+        module.pos=loops.pollLast().start-1;
+      } else if (fn.equals("loop")) {println(nvars);println(vars);println(module.blocks);
+        Block blk=module.blocks.get(module.pos);
         loops.addLast(blk);
         if (module.exprs.get(pos).eval()==0)
-          pos=blk.end;
+          module.pos=blk.end;
       } else if (fn.equals("game")) {
         choose_minigame(tokens);
-      } else if (fn.equals("choice")) {
+      } else if (fn.equals("choice")&&!tokens[1].startsWith("=")) {
         line=join(tokens," ").substring(7);
         String[] ch=preprocess(line).split(";");
         state=new Choice(ch);

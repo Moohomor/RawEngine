@@ -10,6 +10,7 @@ long prevtap=millis();
 ArrayList<String> chrs=new ArrayList<String>();
 int avchr;
 PImage bg;
+color bgc=color(0);
 ArrayList<Toast> toasts=new ArrayList<Toast>();
 ArrayDeque<Module> modstack=new ArrayDeque<Module>();
 HashMap<String,Module> mods=new HashMap<String,Module>();
@@ -36,6 +37,7 @@ void setup() {
   vars.put("Engine.text","");
   nvars.put("Math.pi",PI);
   nvars.put("Math.e",exp(1));
+  nvars.put("choice",-1.);
   for (String i: NECESSARY_IMAGES)
     imdata.put(i,loadImage(i));
   println(imdata);

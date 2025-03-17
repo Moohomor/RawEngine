@@ -8,7 +8,7 @@ class Game extends Screen {
     if (bg!=null)
       image(bg,0,0,width,height);
     else
-      background(DEFAULT_COLOR);
+      background(bgc);
     state.upd();
     super.upd();
   }
