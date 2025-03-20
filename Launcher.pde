@@ -14,10 +14,10 @@ color bgc=color(0);
 ArrayList<Toast> toasts=new ArrayList<Toast>();
 ArrayDeque<Module> modstack=new ArrayDeque<Module>();
 HashMap<String,Module> mods=new HashMap<String,Module>();
-HashMap<String,PImage> imdata=new HashMap<String,PImage>();
+SafeMap<String,PImage> imdata=new SafeMap<String,PImage>();
 HashMap<String,Float> nvars=new HashMap<String,Float>();
 HashMap<String,String> vars=new HashMap<String,String>();
-HashMap<String,PAudio> audio=new HashMap<String,PAudio>();
+SafeMap<String,PAudio> audio=new SafeMap<String,PAudio>();
 color cbg=0;
 void setup() {
   opPriority.put("=",0);
@@ -47,6 +47,8 @@ void setup() {
     imdata.put(name,loadImage(name));
   }
   screen=new Menu();
+  dfsMods("main");
+  println(mods);
   prev=createImage(width,height,RGB);
 }
 
@@ -89,10 +91,14 @@ public void onBackPressed() {
   screen.bPressed();
 }
 void setbg(String name) {
-  vars.put("Engine.bg_name",name);
-  if (imdata.containsKey(name))
-    setbg_(imdata.get(name));
-  else bg=null;
+  PImage nbg=imdata.get(name);
+  if (nbg!=null) {
+    vars.put("Engine.bg_name",name);
+    setbg_(nbg);
+  } else bg=null;
+  /*if (imdata.containsKey(name))
+    setbg_();
+  else bg=null;*/
 }
 void setbg_(PImage im) {
   bg=im;

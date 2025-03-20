@@ -15,7 +15,9 @@ class Screen {
 }
 class Menu extends Screen {
   Menu() {
-    Button b1=new Button(20,height/2-50,"Play") {
+    Button b1=new Button(20,height/2-50,
+      new File(dataPath("AUTO.JSON")).exists()?
+      "Continue":"Start") {
       //color bgcol=color(225,40,40);
       void draw_bg(int x,int y) {
         fill(bgcol);noStroke();
@@ -23,8 +25,6 @@ class Menu extends Screen {
       }
       void mPressed() {
         screen=new MiddleScreen(new ColorTrans(new Game(),0,100),500);
-        if (new File(dataPath("GAME.JSON")).exists())
-          loadData("GAME.JSON");
       }
     },
            b2=new Button(20,height/2+50,"Achievements") {

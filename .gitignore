@@ -4,3 +4,9 @@ data/*
 !data/yes.png
 !data/no.png
 !data/choicebg.png
+!data/stub.png
+!data/stub.jpg
+!data/stub.gif
+!data/stub.mp3
+!data/stub.ogg
+!data/stub.wav

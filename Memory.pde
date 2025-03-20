@@ -21,12 +21,17 @@ void saveData(String path) {
   json.setString("current_mod",engine.module.name);
   json.setInt("current_pos",engine.module.pos);
   saveJSONObject(json,path);
-  println("Saved");
-  println(json);
+  println("Saved",path);
+  println(new File(path).exists());
+  if (!path.endsWith("AUTO.JSON"))
+    println(json);
 }
 
 void loadData(String path) {
   modstack.clear();
+  println("exists",new File(path).exists());
+  if (!new File(path).exists())
+    return;
   JSONObject json=loadJSONObject(path);
   println(json);
   JSONArray array=new JSONArray();
@@ -47,6 +52,7 @@ void loadData(String path) {
     nvars.put((String)nm,nv.getFloat((String)nm));
   engine.module=mods.get(json.getString("current_mod"));
   engine.module.pos=json.getInt("current_pos");
+  setbg(vars.get("Engine.bg_name"));
   println("Loaded");
   println(json);
 }

@@ -26,14 +26,26 @@ class Module {
       String[] tokens=trimmed.split(" ");
       if (tokens[0].trim().equals("bg")) {
         String name=join(tokens,' ').substring(3);
-        imdata.put(name,loadImage(name));
-        continue;
+        //if (new File(dataPath(name)).exists())
+        if (!isDigit(name)&&!name.startsWith("#"))
+          imdata.put(name,loadImage(name));
+        //else
+          continue;
       } else if (tokens[0].trim().equals("toast")) {
         String[] args=trimmed.substring(6).split(";");
         if (args.length>2) {
           String name=args[2].trim();
-          imdata.put(name,loadImage(name));
+          //if (new File(dataPath(name)).exists())
+            imdata.put(name,loadImage(name));
         }
+        continue;
+      } else if (tokens[0].trim().equals("char")) {
+        if (!tokens[1].equals("add"))
+          continue;
+        println(tokens);
+        String name=tokens[2].trim();
+        if (new File(dataPath(name)).exists())
+          imdata.put(name,loadImage(name));
         continue;
       }
       if (tokens[0].contains("endif")) {

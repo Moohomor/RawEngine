@@ -34,7 +34,21 @@ boolean isDigit(String s) {
       return false;
   return true;
 }*/
-
+class SafeMap<K,V> extends HashMap<K,V> {
+  V put(K key, V val) {
+    if (!containsKey(key)||get(key)==null)
+      return super.put(key,val);
+    return val;
+  }
+  V get(Object key) {
+    if (containsKey(key))
+      return super.get(key);
+    String nm="stub.png";
+    if (containsKey(nm))
+      return super.get(nm);
+    return null;
+  }
+}
 void setst(Screen st) {screen=new MiddleScreen(st,200);}
 class MiddleScreen extends Screen  {
   Screen s2;

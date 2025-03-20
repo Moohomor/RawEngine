@@ -7,6 +7,7 @@ class MathExpression {
     expression=expression.replace(" ","");
     // tokenization
     String nb="", lb="";
+    String prev="";
     for (char c:expression.toCharArray()) {
       if (Character.isDigit(c)||c=='.') nb+=c;
       else if (Character.isAlphabetic(c)||c=='"'||c=='"') {

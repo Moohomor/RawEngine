@@ -3,9 +3,10 @@ class Engine {
   ArrayDeque<IfBlock> ifs=new ArrayDeque<IfBlock>();
   ArrayDeque<Block> loops=new ArrayDeque<Block>();
   Engine() {
-    dfsMods("main");
+    //dfsMods("main");
     println(mods);
     module=mods.get("main");
+    module.pos=0;
   }
   /*private void loadModules() {
     for (String name:new File(
@@ -25,6 +26,7 @@ class Engine {
         if (modstack.isEmpty()||
             modstack.getLast()==null) {
           screen=new Menu();
+          new File(dataPath("AUTO.JSON")).delete();
           return;
         } else {
           //module=module.previous;
@@ -32,6 +34,8 @@ class Engine {
           continue;
         }
       }
+      if (AUTOSAVES)
+        saveData(dataPath("AUTO.JSON"));
       String line=module.rows[pos].trim();
       int hashpos=line.indexOf("#");
       println(line,hashpos);
@@ -65,14 +69,18 @@ class Engine {
           String name=join(tokens,' ').substring(3);
           setbg(name);
         }
+      } else if (fn.equals("endgame")) {
+        screen=new Menu();
+        break;
       } else if (fn.equals("audio")) {
+        String name=preprocess(tokens[2]);
         if (tokens[1].equals("play")) {
-          if (!audio.containsKey(tokens[2]))
-            audio.put(tokens[2],new PAudio(tokens[2]));
-          audio.get(tokens[2]).start();
+          if (!audio.containsKey(name))
+            audio.put(name,new PAudio(name));
+          audio.get(name).start();
         } else if (tokens[1].equals("stop")) {
-          audio.get(tokens[2]).stop();
-          audio.remove(tokens[2]);
+          audio.get(name).stop();
+          audio.remove(name);
         }
       } else if (fn.equals("if")) {
         /*for (int i=pos;i<module.length;i++) {
@@ -113,7 +121,10 @@ class Engine {
         module.pos++;
         break;
       } else if (fn.equals("splash")) {
-        state=new Splash(tokens.length>1?line.substring(6):"");
+        println(vars.get("Engine.text"));
+        state=new Splash(preprocess(tokens.length>1?line.substring(6):""));
+        module.pos++;
+        break;
       } else if (fn.equals("char")) {
         String cm=tokens[1].trim();
         if (cm.contains("clear")) {
@@ -121,9 +132,9 @@ class Engine {
           continue;
         }
         if (cm.equals("remove"))
-          chrs.remove(chrs.indexOf(tokens[2]));
+          chrs.remove(chrs.indexOf(preprocess(tokens[2])));
         else if (cm.equals("add"))
-          chrs.add(tokens[2]);
+          chrs.add(preprocess(tokens[2]));
         int s=0;
         for (String i:chrs) s+=imdata.get(i).width;
         avchr=s/chrs.size();
@@ -138,15 +149,15 @@ class Engine {
         else if (args.length==4)
           toasts.add(new Toast(args[0],args[1],args[2],args[3]));
       } else if (fn.equals("achievement")) {
-        Achievement ach=achs.get(tokens[1]);
+        Achievement ach=achs.get(preprocess(tokens[1]));
         if (!ach.done)
           toasts.add(new Toast(ach.title,ach.body,ach.imgn,ach.intro));
         ach.done=true;
         saveAchievements();
       } else if (fn.equals("save")) {
-        saveData(tokens[1].trim());
+        saveData(dataPath(preprocess(tokens[1].trim())));
       } else if (fn.equals("load")) {
-        loadData(tokens[1].trim());
+        loadData(dataPath(preprocess(tokens[1].trim())));
       } else if (fn.equals("goto")) {
         //Module prev=module;
         modstack.add(module);
@@ -197,7 +208,7 @@ class Engine {
   }*/
 String preprocess(String str) {
   int l=-1;
-  str.replace("\\n","\n");
+  str=str.replace("\\n","\n");
   ArrayList<String> r=new ArrayList<String>();
   for (int i=0;i<str.length();i++) {
     if (str.charAt(i)=='{') {

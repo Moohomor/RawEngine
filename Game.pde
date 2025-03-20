@@ -1,6 +1,7 @@
 class Game extends Screen {
   Game() {
     engine=new Engine();
+    loadData(dataPath("AUTO.JSON"));
     state=new Main();
     engine.step();
   }
@@ -14,5 +15,8 @@ class Game extends Screen {
   }
   void mPressed() {
     state.mPressed();
+  }
+  void bPressed() {
+    state.bPressed();
   }
 }

@@ -1,7 +1,10 @@
 class State {
   void upd() {}
   void mPressed() {}
-  void bPressed() {}
+  void bPressed() {
+    screen=new Menu();
+    trans();
+  }
 }
 class Main extends State {
   Main() {}
