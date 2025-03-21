@@ -7,7 +7,9 @@ class State {
   }
 }
 class Main extends State {
-  Main() {}
+  Main() {
+    engine.step();
+  }
   void upd() {
     for (int i=0;i<chrs.size();i++) {
       PImage img=imdata.get(chrs.get(i));
@@ -115,6 +117,8 @@ class Splash extends State {
       mPressed();
   }
   void mPressed() {
+    //engine.step();
+    engine.module.pos++;
     state=new Main();
     trans();
   }

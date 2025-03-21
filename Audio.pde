@@ -7,6 +7,7 @@ class PAudio {
       AssetFileDescriptor desc = getActivity().getApplicationContext().getAssets().openFd(path);
       player = new MediaPlayer();
       player.setDataSource(desc.getFileDescriptor(),desc.getStartOffset(),desc.getLength());
+      player.setLooping(true);
       player.prepare();
     } catch (IOException ex) {
       String err_msg="Audio file "+path+" not found";

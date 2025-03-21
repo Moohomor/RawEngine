@@ -73,6 +73,13 @@ class Engine {
         screen=new Menu();
         break;
       } else if (fn.equals("audio")) {
+        if (tokens[1].equals("clear")) {
+          for (String i:audio.keySet()) {
+            audio.get(i).stop();
+            audio.remove(i);
+          }
+          continue;
+        }
         String name=preprocess(tokens[2]);
         if (tokens[1].equals("play")) {
           if (!audio.containsKey(name))
@@ -121,9 +128,8 @@ class Engine {
         module.pos++;
         break;
       } else if (fn.equals("splash")) {
-        println(vars.get("Engine.text"));
         state=new Splash(preprocess(tokens.length>1?line.substring(6):""));
-        module.pos++;
+        //module.pos++;
         break;
       } else if (fn.equals("char")) {
         String cm=tokens[1].trim();

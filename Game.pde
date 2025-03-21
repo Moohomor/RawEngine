@@ -3,7 +3,7 @@ class Game extends Screen {
     engine=new Engine();
     loadData(dataPath("AUTO.JSON"));
     state=new Main();
-    engine.step();
+    //engine.step();
   }
   void upd() {
     if (bg!=null)

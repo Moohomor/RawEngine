@@ -77,6 +77,16 @@ void draw() {
     textSize(40);
     text("FPS: "+int(frameRate),20,20,200,80);
   }
+  if (SHOW_DEBUG&&screen instanceof Game) {
+    tint(255,255);
+    textAlign(LEFT,CENTER);
+    fill(0,120);
+    noStroke();
+    rect(250,20,1200,80,20);
+    fill(255,210);
+    textSize(40);
+    text(state.toString().substring(21),250,30);
+  }
 }
 void mousePressed() {
   trans();

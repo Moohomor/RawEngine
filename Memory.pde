@@ -51,7 +51,7 @@ void loadData(String path) {
   for (Object nm:nv.keys())
     nvars.put((String)nm,nv.getFloat((String)nm));
   engine.module=mods.get(json.getString("current_mod"));
-  engine.module.pos=json.getInt("current_pos");
+  engine.module.pos=json.getInt("current_pos")-1;
   setbg(vars.get("Engine.bg_name"));
   println("Loaded");
   println(json);
